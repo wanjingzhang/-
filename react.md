@@ -1,4 +1,48 @@
-- 对比
+
+- 技术选型
+最近公司需要开发一款新的小程序，主要是做付费知识相关的产品，涉及到了虚拟商品支付,鉴于IOS的对于虚拟商品支付的种种限制，加上类似小程序的相关调研，决定IOS支付的方式走h5公众号支付 绕开限制，所以在框架选型上 需要一套代码加一点兼容，就可以生成小程序和H5版本的库，考虑到本身技术栈以react为主，所以最后选择了Taro进行开发
+
+
+- componentWillMount ()
+    onLoad 之后，页面组件渲染到 Taro 的虚拟 DOM 之前触发。
+
+- componentDidMount ()
+    1. 程序启动，或切前台时触发
+    2. 页面组件渲染到 Taro 的虚拟 DOM 之后触发。
+    3. 能访问到 Taro 的虚拟 DOM（使用 React ref、document.getElementById 等手段），并支持对其进行操作（设置 DOM 的 style 等）。 
+
+- onReady 生命周期
+Taro 的虚拟 DOM 数据, 已经完成从逻辑层 setData 到视图层。因此这时可通过 createSelectorQuery 等方法获取小程序渲染层 DOM 节点。
+
+- componentDidHide ()
+    程序切后台时触发。 
+
+-入口组件: src 目录下的 app.js
+
+- 调用setState方法
+    1. componentWillMount 
+    2. componentDidMount
+    3. componentDidUpdate
+    4. componentWillReceiveProps
+
+- Ref
+    1. import React, { createRef } from 'react'
+    2. el = createRef()
+    3. <View id='only' ref={this.el} />
+
+- 获取小程序 DOM
+onReady () {
+    // onReady 触发后才能获取小程序渲染层的节点
+    Taro.createSelectorQuery().select('#abc')
+      .boundingClientRect()
+      .exec(res => console.log(res))
+  }
+   
+   
+   
+=============
+
+- 小程序和Taro对比
 
   与小程序的开发方式相比，React 显得更加现代化、规范化，而且 React 天生组件化更适合我们的业务开发，JSX 也比字符串模板有更强的表现力
   
@@ -41,7 +85,41 @@ React 使用 JSX 来作为组件的模板
 - Redux 支持，
   在小程序端，Taro实现了 @tarojs/redux 这个库来作为小程序的 Redux 辅助库，并且以他作为基准库，它具有和 react-redux 一致的 API，在书写代码的时候，引用的都是  @tarojs/redux ，经过编译后，在 H5 端会替换成 nerv-redux（Nerv的 Redux 辅助库），在 RN 端会替换成 react-redux。
 
-- 选Taro 做技术框架的原因
-最近公司需要开发一款新的小程序，主要是做付费知识相关的产品，涉及到了虚拟商品支付，对于IOS的对于虚拟商品支付的种种限制，加上类似小程序的相关调研，决定IOS支付的方式走h5公众号支付绕开限制，所以在框架选型上面需要一套代码加一点兼容代码，就可以生成小程序和H5版本的库，考虑到本身技术栈以react为主，所以最后老大选择了Taro进行开发
+====================
 
+- componentWillMount ()
+    onLoad 之后，页面组件渲染到 Taro 的虚拟 DOM 之前触发。
+
+- componentDidMount ()
+    1. 程序启动，或切前台时触发
+    2. 页面组件渲染到 Taro 的虚拟 DOM 之后触发。
+    3. 能访问到 Taro 的虚拟 DOM（使用 React ref、document.getElementById 等手段），并支持对其进行操作（设置 DOM 的 style 等）。 
+
+- onReady 生命周期
+Taro 的虚拟 DOM 数据, 已经完成从逻辑层 setData 到视图层。因此这时可通过 createSelectorQuery 等方法获取小程序渲染层 DOM 节点。
+
+- componentDidHide ()
+    程序切后台时触发。 
+
+-入口组件: src 目录下的 app.js
+
+- 调用setState方法
+    1. componentWillMount 
+    2. componentDidMount
+    3. componentDidUpdate
+    4. componentWillReceiveProps
+
+- Ref
+    1. import React, { createRef } from 'react'
+    2. el = createRef()
+    3. <View id='only' ref={this.el} />
+
+- 获取小程序 DOM
+onReady () {
+    // onReady 触发后才能获取小程序渲染层的节点
+    Taro.createSelectorQuery().select('#abc')
+      .boundingClientRect()
+      .exec(res => console.log(res))
+  }
    
+====================
